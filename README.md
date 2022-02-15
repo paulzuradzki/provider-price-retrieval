@@ -64,7 +64,7 @@ Northwestern Medicine Woodstock Hospital                   0.038272
 Northwestern Medicine Marianjoy Rehabilitation Hospital    0.021720
 ```
 
-### Todos
+### Todos, dev notes
 * need metadata for tagging provider sources
     * last refresh date, effective dates
     * address, lat/long coordinates
@@ -75,3 +75,5 @@ Northwestern Medicine Marianjoy Rehabilitation Hospital    0.021720
 * add progress bars for longer/looped downloads
 * data quality report for each source/module
 * load to SQL step
+* namespaces work. Maybe OOP/ABCs for stricter interfaces and composition?
+* decouple read_csv() from to_common_format_df(). URLs might come from a separate source rather than being hard-codes in passing module.
