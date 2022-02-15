@@ -1,6 +1,24 @@
 """
 Northwestern Memorial Health Systems
+
+Data Notes
+* Source URL: `https://www.nm.org/patients-and-visitors/billing-and-insurance/chargemaster`
+* Link contains charges and negotiated rate data in separate files. This module is concerned with rates.
+* TODO: retrieve Palos Hospital (non-standard format; needs separate parser). Ignored for now.
+* Target URL contains the following Northwestern Medicine (NWM) facilities:
+    * Northwestern Memorial Hospital
+    * NWM Central DuPage Hospital
+    * NWM Lake Forest Hospital
+    * NWM Delnor Hospital
+    * NWM Kishwaukee Hospital
+    * NWM Valley West Hospital
+    * NWM Marianjoy Rehabilitation Hospital
+    * NWM Huntley Hospital
+    * NWM McHenry Hospital
+    * NWM Woodstock Hospital
+    * NWM Palos Hospital
 """
+
 from pprint import pprint
 import re
 
@@ -21,10 +39,11 @@ def to_common_format_df():
             continue
         rate_lookup[e.text] = url + e['href']
 
+    # loop through each URL and concatenate dataset to itself
     rates = pd.DataFrame()
     for label, url in rate_lookup.items():
         rates = pd.concat([rates, url_to_df(url=url, label=label)])
-        
+
     rates = rates.reset_index(drop=True)
     rates[['code_type', 'code']] = pd.DataFrame(rates['billing_code'].apply(parse_billing_code_col).values.tolist())
 
@@ -38,17 +57,14 @@ def to_common_format_df():
 
     return rates
 
-#############################################
-### retrieve and consolidate negotiated rates
-#############################################
-
 def cleanup_cols(df):
     """We will pipe this func on each dataframe in loop before consolidating df's."""
     df.columns = [col.lower().replace(' ', '_') for col in df.columns]
     return df
 
-def parse_billing_code_col(s):
-    l = s.split()
+def parse_billing_code_col(s:str):
+    """Split billing code into separate fields for code_type and code. E.g., 'MSDRG .... 001'."""
+    l:list = s.split()
     if 'MS-DRG' in s:
         code_type, code = l[0], l[4]
     elif re.search('CPT|HCPCS', s):
@@ -58,6 +74,7 @@ def parse_billing_code_col(s):
     return code_type, code
 
 def url_to_df(url=None, label=None):
+    """Make sub-dataframe from URL which we will consolidate into one."""
     _rates = (pd.read_csv(url, encoding='latin1', sep='|')
                 .assign(source=label)
                 .pipe(cleanup_cols)

@@ -11,8 +11,8 @@ Steps
 * retrieve IP and OP Excel data sets and combine
 * convert from wide to tall (melt payer rate columns) and rename columns
 * combine IP and OP to common foramt
-
 """
+
 import pandas as pd
 
 def to_common_format_df():
@@ -27,6 +27,8 @@ def to_common_format_df():
     df_ip = pd.DataFrame()
     df_op = pd.DataFrame()
 
+    # loop through 3 Excel URLs and retrieve IP and OP tabs
+    # concatenate the sub-table (_df_ip) to the consolidated table (df_ip) 
     for label, url in rush_lookup.items():
         _df_ip = (pd.read_excel(url, sheet_name='IP')
                     .pipe(tweak_df, facility_type='IP', label=label)
@@ -68,7 +70,7 @@ def to_common_format_df():
     return melted
 
 def tweak_df(df, facility_type=None, label=None): 
-    """Skips first row."""
+    """Skips first row for edge cases."""
     if facility_type=='OP' or label=='Rush University Medical Center':
         # same effect as skipping first row
         df.columns = df.iloc[0, :]
