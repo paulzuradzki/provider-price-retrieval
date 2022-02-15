@@ -13,18 +13,18 @@ $ venv/bin/activate
 
 ### Usage
 ```python
->>> from mrf_parser import src_00001, src_00002
+from mrf_parser import src_00001, src_00002, src_00003
 
-# Northwestern Memorial rates
->>> nwm_df = src_00001.to_common_format_df()
-
-# Rush Univeristy Medical Center rates
->>> rumc_df = src_00002.to_common_format_df()
+nwm_df = src_00001.to_common_format_df()
+rumc_df = src_00002.to_common_format_df()
+ahc_df = src_00003.to_common_format_df()
 
 # query for foot xray rates (HCPCS/CPT 73730)
->>> print(nwm_df.query("code_desc.str.contains('XRAY FOOT')").to_markdown(index=False)) 
+print(nwm_df.query("code_desc.str.contains('XRAY FOOT')").to_markdown(index=False)) 
 ```
+
 Output
+```
 | source                         |   code | code_type   | code_desc                    | rate_amt_type                                  |   rate_amt |
 |:-------------------------------|-------:|:------------|:-----------------------------|:-----------------------------------------------|-----------:|
 | Northwestern Memorial Hospital |  73630 | CPT®        | HB XRAY FOOT MINIMUM 3 VIEWS | gross_charge                                   |     666    |
@@ -45,6 +45,7 @@ Output
 | Northwestern Memorial Hospital |  73630 | CPT®        | HB XRAY FOOT MINIMUM 3 VIEWS | negotiated_charge:_bcbs_ppo                    |     245.55 |
 | Northwestern Memorial Hospital |  73630 | CPT®        | HB XRAY FOOT MINIMUM 3 VIEWS | negotiated_charge:_bcbs_hmo                    |     168.9  |
 | Northwestern Memorial Hospital |  73630 | CPT®        | HB XRAY FOOT MINIMUM 3 VIEWS | negotiated_charge:_bcbs_blue_choice            |     168.9  |
+```
 
 ```python
 # Northwestern facilities (excluding Palos)
@@ -73,3 +74,4 @@ Northwestern Medicine Marianjoy Rehabilitation Hospital    0.021720
     * `code_type` labels should also be consistent.
 * add progress bars for longer/looped downloads
 * data quality report for each source/module
+* load to SQL step

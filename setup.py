@@ -15,5 +15,5 @@ setuptools.setup(
     long_description=README,
     long_description_content_type="text/markdown",    
     packages=setuptools.find_packages(exclude=("tests",)),
-    install_requires=['beautifulsoup4', 'pandas', 'requests', 'lxml'],
+    install_requires=['beautifulsoup4', 'pandas>=1.3.0', 'requests', 'lxml', 'openpyxl', 'tabulate'],
 )
