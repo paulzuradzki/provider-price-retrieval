@@ -72,3 +72,4 @@ Northwestern Medicine Marianjoy Rehabilitation Hospital    0.021720
     * E.g., in `code` column, we want DRG to consistently appear as "001" vs. "MS-001"
     * `code_type` labels should also be consistent.
 * add progress bars for longer/looped downloads
+* data quality report for each source/module

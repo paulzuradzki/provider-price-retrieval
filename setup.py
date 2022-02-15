@@ -15,5 +15,5 @@ setuptools.setup(
     long_description=README,
     long_description_content_type="text/markdown",    
     packages=setuptools.find_packages(exclude=("tests",)),
-    install_requires=['beautifulsoup4', 'pandas', 'requests'],
+    install_requires=['beautifulsoup4', 'pandas', 'requests', 'lxml'],
 )
