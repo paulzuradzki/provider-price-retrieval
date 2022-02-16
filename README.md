@@ -76,4 +76,4 @@ Northwestern Medicine Marianjoy Rehabilitation Hospital    0.021720
 * data quality report for each source/module
 * load to SQL step
 * namespaces work. Maybe OOP/ABCs for stricter interfaces and composition?
-* decouple read_csv() from to_common_format_df(). URLs might come from a separate source rather than being hard-codes in passing module.
+* decouple read_csv() from to_common_format_df(). URLs might come from a separate source rather than being hard-coded in each parsing module
