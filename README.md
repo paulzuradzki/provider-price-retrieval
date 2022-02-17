@@ -13,6 +13,7 @@ $ venv/bin/activate
 
 ### Usage
 ```python
+# each src_* module represents a provider rate source/URL
 from mrf_parser import src_00001, src_00002, src_00003
 
 nwm_df = src_00001.to_common_format_df()
@@ -20,7 +21,7 @@ rumc_df = src_00002.to_common_format_df()
 ahc_df = src_00003.to_common_format_df()
 
 # query for foot xray rates (HCPCS/CPT 73730)
-print(nwm_df.query("code_desc.str.contains('XRAY FOOT')").to_markdown(index=False)) 
+print(nwm_df.query("code_desc.str.contains('XRAY FOOT')").head().to_markdown(index=False)) 
 ```
 
 Output
