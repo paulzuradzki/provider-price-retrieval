@@ -1,3 +1,4 @@
+# each src_* module represents a provider rate source/URL
 from mrf_parser import src_00001, src_00002, src_00003
 import logging
 
